@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFT-Generator</title>
+    <script >
+        function downloadImg(){
+                 //var fullQuality = canvas.toDataURL('image/jpeg', 1.0);
+                var image = canvas.toDataURL("image/png",1.0).replace("image/png", "image/octet-stream");  
+                window.location.href=image; // it will save locally
+            }
+        window.onload=function(){
+            //BACKGROUND
+            var bg=new Image();
+            var bgNum=Math.floor(Math.random()*4)+1;
+            var bgName="background"+bgNum+".jpg";
+            bg.src="./background/"+bgName
+            //HEAD
+            var catHead=new Image();
+            var catHeadnum=Math.floor(Math.random()*5)+1;
+            var catHeadName="body"+catHeadnum+".png"
+            catHead.src="./body/"+catHeadName
+
+            //EYEGLASS
+            var catEyes=new Image();
+            var catEyesnum=Math.floor(Math.random()*4)+1;
+            var catEyesName="eyeGlass"+catEyesnum+".png"
+            catEyes.src="./eyeGlass/"+catEyesName
+             //DRESS
+            var catDress=new Image();
+            var catDressnum=Math.floor(Math.random()*3)+1;
+            var catDressName="dress"+catDressnum+".png"
+            catDress.src="./dress/"+catDressName
+
+            // BG LOADED
+            bg.onload=function(){
+                buildCatBot
+            }
+            //HEAD LOADED
+            catHead.onload=function()
+            {
+                buildCatBot();
+            }
+            //EYE LOADED
+            catEyes.onload=function()
+            {
+                buildCatBot();
+            }
+            //DRAW DRESS
+            catDress.onload=function()
+            {
+                buildCatBot();
+            }
+            function buildCatBot(){
+                var canvas=document.getElementById('canvas');
+                var ctx=canvas.getContext('2d');
+                canvas.width=400;
+                canvas.height=400;
+                var r=Math.floor(Math.random()*(255-100+1)+100);
+                var g=Math.floor(Math.random()*(255-100+1)+100);
+                var b=Math.floor(Math.random()*(255-100+1)+100);
+                var bgCol='#'+r.toString(16)+g.toString(16)+b.toString(16);
+                ctx.fillStyle=bgCol;
+                ctx.fillRect(0,0,400,400);
+                //DRAW BG
+                //ctx.drawImage(bg,1,1)
+                 // DRAW HEAD
+                ctx.drawImage(catHead,((400-catHead.width)/2),0);
+                // DRAW EYE
+                ctx.drawImage(catEyes,((400-catEyes.width)/2),110);
+                // DRAW DRESS
+                ctx.drawImage(catDress,((400-catDress.width)/2),340);
+                
+            }
+            
+
+
+        }
+
+    </script>
+</head>
+<body>
+    <div align="center">
+        <canvas id="canvas" style="border:5px solid #000000 ;" ></canvas>
+        <br><br>
+        <button onClick="window.location.reload()">Next</button>
+        <button onClick="downloadImg()">Save</button>
+    </div>
+    
+</body>
+</html>
